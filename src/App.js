@@ -10,6 +10,7 @@ import './default.scss'
 import HomePage from './pages/homepage';
 import Registration from './pages/registration';
 import Login from './pages/Login'
+import Recovery from './pages/recovery';
 
 const initialState = {
   currentUser: null
@@ -49,7 +50,7 @@ class App extends Component {
   }
   
   render(){
-    const {currentUser} = this.state
+    const { currentUser } = this.state
     
     return (
       <div className="App">
@@ -57,23 +58,29 @@ class App extends Component {
             <Switch>
   
               <Route exact path='/' render={() => (
-                <HomePageLayout currentUser={currentUser}>
+                <HomePageLayout >
                   <HomePage/>
                 </HomePageLayout> 
                 )} />
   
               <Route path='/registration' render={() => currentUser ? <Redirect to ='/'/> : (
-                <MainLayout currentUser={currentUser}>
+                <MainLayout >
                   <Registration/>
                 </MainLayout> 
                 )} />
   
               <Route path='/login' 
               render={() => currentUser? <Redirect to='/' /> : (
-                <MainLayout currentUser={currentUser}>
+                <MainLayout >
                   <Login/>
                 </MainLayout> 
                 )} />
+
+              <Route path='/recovery' render={ () => (
+                  <MainLayout>
+                    <Recovery />
+                  </MainLayout>
+              )} />
   
             </Switch>
             

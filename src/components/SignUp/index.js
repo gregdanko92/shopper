@@ -3,6 +3,7 @@ import  './styles.scss'
 import FormInput from '../forms/FormInput'
 import Buttons from '../forms/Button'
 import { auth, handleUserProfile } from './../../firebase/utility'
+import AuthWrapper from './../AuthWrapper'
 
 const initialState = {
     displayName: '',
@@ -55,26 +56,28 @@ class Signup extends Component {
     }
     render(){
         const {displayName, email, password, confirmPassword, errors} = this.state
+        const configAuthWrapper = {
+            headline:'Registration'
+        }
         return(
-            <div className='signup'>
-                <div className='wrap'>
+            <AuthWrapper {...configAuthWrapper} >
                     <h2>
-                        Sign Up
+                        
                     </h2>
 
-                    {errors.length > 0 && (
-                        <ul>
-                            {errors.map((err, idx)=>{
-                                return(
-                                    <li key={idx}>
-                                        {err}
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    )}
 
                     <div className='form-wrap'>
+                        {errors.length > 0 && (
+                            <ul>
+                                {errors.map((err, idx)=>{
+                                    return(
+                                        <li key={idx}>
+                                            {err}
+                                        </li>
+                                    )
+                                })}
+                            </ul>
+                        )}
                         <form
                         onSubmit={this.handleFormSubmit}>
 
@@ -113,10 +116,9 @@ class Signup extends Component {
 
 
                         </form>
-                    </div>
-                </div>
 
-            </div>
+                    </div>
+            </AuthWrapper>
         )
     }
 }
