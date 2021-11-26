@@ -1,45 +1,35 @@
-import React, { Component } from 'react'
+import React, { useState } from 'react'
 import  './styles.scss'
 import FormInput from '../forms/FormInput'
 import Buttons from '../forms/Button'
 import { auth, handleUserProfile } from './../../firebase/utility'
 import AuthWrapper from './../AuthWrapper'
+import { withRouter } from 'react-router-dom'
 
-const initialState = {
-    displayName: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-    errors:[]
+const Signup  = (props) => {
 
-}
+    const [displayName, setDisplayName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
+    const [errors, setErrors] = useState([])
 
-class Signup extends Component {
-    constructor(props){
-        super(props)
-        this.state = {
-            ...initialState
-        }
-        this.handleChange = this.handleChange.bind(this)
-        
+
+    const reset = () => {
+        setDisplayName('')
+        setEmail('')
+        setPassword('')
+        setConfirmPassword('')
+        setErrors([])
     }
 
-    handleChange(e) {
-        const {name, value} = e.target
-        this.setState({
-            [name]:value
-        })
-    }
 
-    handleFormSubmit = async event =>{
+    const handleFormSubmit = async event =>{
         event.preventDefault()
-        const {displayName, email, password, confirmPassword, errors } = this.state
 
         if(password !== confirmPassword){
             const err = ['Passwords do not match']
-            this.setState({
-                errors:err
-            })
+            setErrors(err)
             return
         }
 
@@ -48,14 +38,14 @@ class Signup extends Component {
             
             await handleUserProfile(user, { displayName })
 
-            this.setState({...initialState})
-
+            reset()
+            
+            props.history.push('/')
+            
         } catch(err){
 
         }
     }
-    render(){
-        const {displayName, email, password, confirmPassword, errors} = this.state
         const configAuthWrapper = {
             headline:'Registration'
         }
@@ -79,37 +69,36 @@ class Signup extends Component {
                             </ul>
                         )}
                         <form
-                        onSubmit={this.handleFormSubmit}>
+                        onSubmit={handleFormSubmit}>
 
                             <FormInput
                             type="text"
                             name="displayName"
                             value={displayName}
-                            onChange = {this.handleChange}
+                            handleChange = {e=>setDisplayName(e.target.value)}
                             placeholder="Full Name"
                             />
                             <FormInput
                             type="email"
                             name="email"
                             value={email}
-                            onChange = {this.handleChange}
+                            handleChange = {e=>setEmail(e.target.value)}
                             placeholder="Email"
                             />
                             <FormInput
                             type="password"
                             name="password"
                             value={password}
-                            onChange = {this.handleChange}
+                            handleChange = {e=>setPassword(e.target.value)}
                             placeholder="Password"
                             />
                             <FormInput
                             type="password"
                             name="confirmPassword"
                             value={confirmPassword}
-                            onChange = {this.handleChange}
+                            handleChange = {e=>setConfirmPassword(e.target.value)}
                             placeholder="Confirm Password"
                             />
-
                             <Buttons>
                                 Register
                             </Buttons>
@@ -121,5 +110,5 @@ class Signup extends Component {
             </AuthWrapper>
         )
     }
-}
-export default Signup
+
+export default withRouter(Signup)

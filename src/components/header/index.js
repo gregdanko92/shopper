@@ -6,6 +6,7 @@ import { auth } from './../../firebase/utility'
 
 
 
+
 const Header = (props) => {
     const { currentUser } = props
     return(
@@ -27,6 +28,11 @@ const Header = (props) => {
                                     LogOut
                                 </span>
                             </li>
+                            <li>
+                                <Link to='/dashboard' >
+                                    My Account
+                                </Link>
+                            </li>
                         </ul>
                     )}
 
@@ -37,6 +43,7 @@ const Header = (props) => {
                                     Register
                                 </Link>
                             </li>
+                            
                             <li>
                                 <Link to='/login' >
                                     Login
