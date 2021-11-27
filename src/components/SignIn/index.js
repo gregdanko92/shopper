@@ -1,14 +1,21 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import { signInUser, signInWithGoogle, resetAllAuthForms } from './../../redux/User/user.actions'
 import { Link, withRouter } from 'react-router-dom'
 import './styles.scss'
 import Button from './../forms/Button/'
-import  { signInWithGoogle, auth } from './../../firebase/utility'
 import AuthWrapper from './../AuthWrapper'
 
 import FormInput from './../forms/FormInput'
 import Buttons from './../forms/Button/'
 
+const mapState= ({ user }) => ({
+    signInSuccess: user.signInSuccess
+})
+
 const SignIn = (props) => {
+    const { signInSuccess } = useSelector(mapState)
+    const dispatch = useDispatch()
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
@@ -16,19 +23,22 @@ const SignIn = (props) => {
         setEmail('')
         setPassword('')
     }
-    
-    const handleSubmit = async (e) =>{
-        e.preventDefault()
-        try {
-            await auth.signInWithEmailAndPassword(email, password)
 
+    useEffect(()=>{
+        if (signInSuccess){
             resetForm()
-
+            dispatch(resetAllAuthForms())
             props.history.push('/')
-
-        } catch(err) {
-            console.log(err)
         }
+    }, [signInSuccess])
+    
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+        dispatch(signInUser({email, password}))
+    }
+
+    const handleGoogleSignIn = () => {
+        dispatch(signInWithGoogle())
     }
         const configAuthWrapper = {
             headline: 'LogIn'
@@ -57,7 +67,7 @@ const SignIn = (props) => {
                             
                         <div className='social-signin'>
                                 <div className='row'>
-                                    <Button onClick={signInWithGoogle}>
+                                    <Button onClick={handleGoogleSignIn}>
                                         Sign in with Google
                                     </Button>
                                 </div>

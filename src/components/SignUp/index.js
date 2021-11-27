@@ -1,19 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import  './styles.scss'
 import FormInput from '../forms/FormInput'
 import Buttons from '../forms/Button'
-import { auth, handleUserProfile } from './../../firebase/utility'
 import AuthWrapper from './../AuthWrapper'
 import { withRouter } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import {signUpUser, resetAllAuthForms} from './../../redux/User/user.actions'
+
+const mapState = ({ user }) => ({
+    signUpSuccess: user.signUpSuccess,
+    signUpError: user.signUpError
+})
 
 const Signup  = (props) => {
-
+    const {signUpSuccess, signUpError} = useSelector(mapState)
+    const dispatch = useDispatch()
     const [displayName, setDisplayName] = useState('')
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
     const [errors, setErrors] = useState([])
 
+    useEffect(()=>{
+        if (signUpSuccess){
+            reset()
+            dispatch(resetAllAuthForms())
+            props.history.push('/')
+        }
+    }, [signUpSuccess])
+
+    useEffect(()=>{
+        if (Array.isArray(signUpError) && signUpError.length > 0){
+            setErrors(signUpError)
+        }
+
+
+    }, [signUpError])
 
     const reset = () => {
         setDisplayName('')
@@ -24,27 +46,18 @@ const Signup  = (props) => {
     }
 
 
-    const handleFormSubmit = async event =>{
+    const handleFormSubmit = (event) =>{
         event.preventDefault()
+        dispatch(signUpUser({
+            displayName,
+            email,
+            password,
+            confirmPassword
+        }))
 
-        if(password !== confirmPassword){
-            const err = ['Passwords do not match']
-            setErrors(err)
-            return
-        }
+       
 
-        try{
-            const { user } = await auth.createUserWithEmailAndPassword(email, password)
-            
-            await handleUserProfile(user, { displayName })
-
-            reset()
-            
-            props.history.push('/')
-            
-        } catch(err){
-
-        }
+        
     }
         const configAuthWrapper = {
             headline:'Registration'
