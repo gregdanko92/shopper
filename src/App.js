@@ -4,8 +4,16 @@ import { auth, handleUserProfile } from './firebase/utility'
 import { setCurrentUser } from './redux/User/user.actions'
 import { useSelector, useDispatch } from 'react-redux'
 import { checkUserSession } from './redux/User/user.actions'
+
+
+// components
+
+import AdminToolbar from './components/AdminToolbar'
+
 // higher order component
 import WithAuth from './hoc/WithAuth'
+import WithAdminAuth from './hoc/WithAdminAuth'
+
 // layouts
 import MainLayout from './layouts/MainLayout';
 import HomePageLayout from './layouts/HomePageLayout';
@@ -17,6 +25,7 @@ import Registration from './pages/registration';
 import Login from './pages/Login'
 import Recovery from './pages/recovery';
 import Dashboard from './pages/Dashboard'
+import Admin from './pages/admin'
 
 
 const App = (props) => {
@@ -31,6 +40,7 @@ const App = (props) => {
     return (
       <div className="App">
         <div className='main'>
+            <AdminToolbar />
             <Switch>
   
               <Route exact path='/' render={() => (
@@ -64,6 +74,14 @@ const App = (props) => {
                     <Dashboard />
                   </MainLayout>
                 </WithAuth>
+              )} />
+
+              <Route path='/admin' render={ () => (
+                <WithAdminAuth>
+                  <MainLayout>
+                    <Admin />
+                  </MainLayout>
+                </WithAdminAuth>
               )} />
   
             </Switch>

@@ -13,7 +13,7 @@ const useAuth = (props) => {
     
     useEffect(()=>{
         if (!currentUser){
-            history.push('/login')
+            history.push('/login') //grabs the current user from redux store and redirects based on whether or not that's true
         }
     }, [currentUser])
 
