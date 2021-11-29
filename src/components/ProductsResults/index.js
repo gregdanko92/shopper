@@ -46,11 +46,11 @@ const ProductsResults = ({}) => {
             name:'Show all',
             value: ''
         },{
-            name:'Mens',
-            value: 'mens'
+            name:'Wetsuits',
+            value: 'wetsuits'
         },{
-            name:'Womens',
-            value: 'womens'
+            name:'Surfboards',
+            value: 'surfboards'
         }],
         handleChange: handleFilter
     }

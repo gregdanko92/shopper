@@ -24,7 +24,7 @@ const signOut = () => {
                 <div className='logo'>
 
                     <Link to='/'>
-                        <h1>LOGO</h1>
+                        <h1>SURFSHOP</h1>
                     </Link>
                     
                 </div>
@@ -50,7 +50,7 @@ const signOut = () => {
                     <ul>
 
                         <li>
-                            <Link>
+                            <Link to='/cart'>
                                 Cart [ {totalNumCartItems} ]
                             </Link>
                         </li>

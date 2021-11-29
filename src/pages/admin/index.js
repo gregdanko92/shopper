@@ -5,7 +5,6 @@ import Modal from './../../components/Modal';
 import FormInput from './../../components/forms/FormInput';
 import FormSelect from './../../components/forms/FormSelect';
 import Button from './../../components/forms/Button';
-// import LoadMore from './../../components/LoadMore';
 import { CKEditor } from 'ckeditor4-react';
 import './styles.scss';
 
@@ -17,7 +16,7 @@ const Admin = props => {
   const { products } = useSelector(mapState);
   const dispatch = useDispatch();
   const [hideModal, setHideModal] = useState(true);
-  const [productCategory, setProductCategory] = useState('mens');
+  const [productCategory, setProductCategory] = useState('wetsuits');
   const [productName, setProductName] = useState('');
   const [productThumbnail, setProductThumbnail] = useState('');
   const [productPrice, setProductPrice] = useState(0);
@@ -40,7 +39,7 @@ const Admin = props => {
 
   const resetForm = () => {
     setHideModal(true);
-    setProductCategory('mens');
+    setProductCategory('wetsuits');
     setProductName('');
     setProductThumbnail('');
     setProductPrice(0);
@@ -88,11 +87,11 @@ const Admin = props => {
             <FormSelect
               label="Category"
               options={[{
-                value: "mens",
-                name: "Mens"
+                value: "wetsuits",
+                name: "Wetsuits"
               }, {
-                value: "womens",
-                name: "Womens"
+                value: "surfboards",
+                name: "Surfboards"
               }]}
               handleChange={e => setProductCategory(e.target.value)}
             />

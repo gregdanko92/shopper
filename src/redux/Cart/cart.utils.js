@@ -31,3 +31,31 @@ export const handleAddToCart = ({
 }
 
 //this file will handle adding items to cart, important for cases of adding duplicate items, or initial items, that way you can have multiples of an item but only represent them once graphically
+
+export const handleRemoveCartItem = ({
+    prevCartItems,
+    cartItemToRemove
+  }) => {
+    return prevCartItems.filter(item => item.documentID !== cartItemToRemove.documentID);
+  }
+  
+  export const handleReduceCartItem = ({
+    prevCartItems,
+    cartItemToReduce
+  }) => {
+    const existingCartItem = prevCartItems.find(cartItem =>
+      cartItem.documentID === cartItemToReduce.documentID);
+  
+    if (existingCartItem.quantity === 1) {
+      return prevCartItems.filter(
+        cartItem => cartItem.documentID !== existingCartItem.documentID
+      );
+    }
+  
+    return prevCartItems.map(cartItem =>
+      cartItem.documentID === existingCartItem.documentID ?
+      {
+        ...cartItem,
+        quantity: cartItem.quantity - 1
+      } : cartItem)
+    }

@@ -1,9 +1,9 @@
-import { auth } from './../../firebase/utility';
-import { takeLatest, put, all, call } from 'redux-saga/effects';
-import { setProducts, setProduct, fetchProductsStart } from './products.actions';
+import { auth } from './../../firebase/utility'
+import { takeLatest, put, all, call } from 'redux-saga/effects'
+import { setProducts, setProduct, fetchProductsStart } from './products.actions'
 import { handleAddProduct, handleFetchProducts,
-  handleFetchProduct, handleDeleteProduct } from './products.helpers';
-import productsTypes from './products.types';
+  handleFetchProduct, handleDeleteProduct } from './products.helpers'
+import productsTypes from './products.types'
 
 export function* addProduct({ payload }) {
 
@@ -26,7 +26,7 @@ export function* addProduct({ payload }) {
 }
 
 export function* onAddProductStart() {
-  yield takeLatest(productsTypes.ADD_NEW_PRODUCT_START, addProduct);
+  yield takeLatest(productsTypes.ADD_NEW_PRODUCT_START, addProduct)
 }
 
 export function* fetchProducts({ payload }) {
@@ -42,12 +42,12 @@ export function* fetchProducts({ payload }) {
 }
 
 export function* onFetchProductsStart() {
-  yield takeLatest(productsTypes.FETCH_PRODUCTS_START, fetchProducts);
+  yield takeLatest(productsTypes.FETCH_PRODUCTS_START, fetchProducts)
 }
 
 export function* deleteProduct({ payload }) {
   try {
-    yield handleDeleteProduct(payload);
+    yield handleDeleteProduct(payload)
     yield put (
       fetchProductsStart()
     );
@@ -58,15 +58,15 @@ export function* deleteProduct({ payload }) {
 }
 
 export function* onDeleteProductStart() {
-  yield takeLatest(productsTypes.DELETE_PRODUCT_START, deleteProduct);
+  yield takeLatest(productsTypes.DELETE_PRODUCT_START, deleteProduct)
 }
 
 export function* fetchProduct({ payload }) {
   try {
-    const product = yield handleFetchProduct(payload);
+    const product = yield handleFetchProduct(payload)
     yield put(
       setProduct(product)
-    );
+    )
 
   } catch (err) {
     // console.log(err);
@@ -74,7 +74,7 @@ export function* fetchProduct({ payload }) {
 }
 
 export function* onFetchProductStart() {
-  yield takeLatest(productsTypes.FETCH_PRODUCT_START, fetchProduct);
+  yield takeLatest(productsTypes.FETCH_PRODUCT_START, fetchProduct)
 }
 
 

@@ -15,22 +15,23 @@ import WithAuth from './hoc/WithAuth'
 import WithAdminAuth from './hoc/WithAdminAuth'
 
 // layouts
-import MainLayout from './layouts/MainLayout';
-import HomePageLayout from './layouts/HomePageLayout';
+import MainLayout from './layouts/MainLayout'
+import HomePageLayout from './layouts/HomePageLayout'
 import AdminLayout from './layouts/AdminLayout'
-import DashboardLayout from './layouts/DashboardLayout';
+import DashboardLayout from './layouts/DashboardLayout'
 
 
 import './default.scss'
 // pages
-import HomePage from './pages/homepage';
-import Registration from './pages/registration';
+import HomePage from './pages/homepage'
+import Registration from './pages/registration'
 import Login from './pages/Login'
-import Recovery from './pages/recovery';
+import Recovery from './pages/recovery'
 import Dashboard from './pages/Dashboard'
 import Admin from './pages/admin'
 import Search from './pages/Search'
 import ProductDetails from './pages/ProductDetails'
+import Cart from './pages/Cart'
 
 
 const App = (props) => {
@@ -105,6 +106,12 @@ const App = (props) => {
                     <Admin />
                   </AdminLayout>
                 </WithAdminAuth>
+              )} />
+
+              <Route path="/cart" render={() => (
+                <MainLayout>
+                  <Cart />
+                </MainLayout>
               )} />
   
             </Switch>
