@@ -29,6 +29,7 @@ import Login from './pages/Login'
 import Recovery from './pages/recovery';
 import Dashboard from './pages/Dashboard'
 import Admin from './pages/admin'
+import Search from './pages/Search'
 
 
 const App = (props) => {
@@ -57,6 +58,12 @@ const App = (props) => {
                   <Registration/>
                 </MainLayout> 
                 )} />
+
+              <Route path='/search' render={() =>  (
+              <MainLayout >
+                <Search />
+              </MainLayout> 
+              )} />
   
               <Route path='/login' 
               render={() => (

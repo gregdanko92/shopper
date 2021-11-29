@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import './styles.scss'
 import { signOutUserStart } from './../../redux/User/user.actions'
 
+
 const mapState = ({ user }) =>({
     currentUser: user.currentUser
 })
@@ -25,6 +26,21 @@ const signOut = () => {
                     </Link>
                     
                 </div>
+                <nav>
+                    <ul>
+                        <li>
+                            <Link to='/search'>
+                                Search
+                            </Link>
+                        </li>
+                        <li>
+                            <Link to='/'>
+                                Home
+                            </Link>
+                        </li>
+                    </ul>
+                </nav>
+
                 <div className='call-to-actions'>
 
                     {currentUser && (
@@ -58,6 +74,7 @@ const signOut = () => {
                         </ul>
                     ) }
             </div>
+            
             </div>
 
         </header>
