@@ -3,10 +3,12 @@ import { useSelector, useDispatch } from 'react-redux' //creates mapStateToProps
 import { Link } from 'react-router-dom'
 import './styles.scss'
 import { signOutUserStart } from './../../redux/User/user.actions'
+import {selectCartItemsCount} from './../../redux/Cart/cart.selectors'
 
-
-const mapState = ({ user }) =>({
-    currentUser: user.currentUser
+const mapState = (state) =>({
+    currentUser: state.user.currentUser, 
+    // totalNumCartItems: cartData.cartItems.length eschewed becuase it doesn't account for cart multiples, want to display the unique cart items
+    totalNumCartItems:selectCartItemsCount(state)
 })
 
 const Header = (props) => {
@@ -15,7 +17,7 @@ const signOut = () => {
     dispatch(signOutUserStart())
 }
 
-    const { currentUser } = useSelector(mapState)
+    const { currentUser, totalNumCartItems } = useSelector(mapState)
     return(
         <header className='header'>
             <div className='wrap'>
@@ -43,36 +45,46 @@ const signOut = () => {
 
                 <div className='call-to-actions'>
 
-                    {currentUser && (
-                        <ul>
+        
+
+                    <ul>
+
+                        <li>
+                            <Link>
+                                Cart [ {totalNumCartItems} ]
+                            </Link>
+                        </li>
+
+                    {currentUser && [
                             <li>
                                 <span onClick={() => signOut()}>
                                     LogOut
                                 </span>
                             </li>
+                            ,
                             <li>
                                 <Link to='/dashboard' >
                                     My Account
                                 </Link>
                             </li>
-                        </ul>
-                    )}
+                    ]}
+                    
 
-                    {!currentUser && (
-                        <ul>
+                
+                    {!currentUser && [
                             <li>
                                 <Link to='/registration' >
                                     Register
                                 </Link>
                             </li>
-                            
+                            ,
                             <li>
                                 <Link to='/login' >
                                     Login
                                 </Link>
                             </li>
-                        </ul>
-                    ) }
+                     ] }
+                    </ul>
             </div>
             
             </div>
