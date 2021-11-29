@@ -17,7 +17,8 @@ const ProductCard = ({}) => {
 
     const { productThumbnail,
         productName,
-        productPrice, } = product
+        productPrice,
+        productDesc } = product
 
     useEffect(()=>{
         dispatch(
@@ -51,6 +52,13 @@ const ProductCard = ({}) => {
                         ${productPrice}.00
                         </span>
                     </li>
+
+                    <li>
+                        <span
+                        dangerouslySetInnerHTML={{__html:productDesc}}>
+                        </span>
+                    </li>
+                    
 
                     <li>
                         <div className='add-to-cart'>
