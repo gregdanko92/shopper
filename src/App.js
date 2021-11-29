@@ -30,6 +30,7 @@ import Recovery from './pages/recovery';
 import Dashboard from './pages/Dashboard'
 import Admin from './pages/admin'
 import Search from './pages/Search'
+import ProductDetails from './pages/ProductDetails'
 
 
 const App = (props) => {
@@ -59,9 +60,21 @@ const App = (props) => {
                 </MainLayout> 
                 )} />
 
-              <Route path='/search' render={() =>  (
+              <Route exact path='/search' render={() =>  (
               <MainLayout >
                 <Search />
+              </MainLayout> 
+              )} />
+              
+              <Route path='/search/:filterType' render={() =>  (
+              <MainLayout >
+                <Search />
+              </MainLayout> 
+              )} />
+
+              <Route path='/product/:productID' render={() =>  (
+              <MainLayout >
+                <ProductDetails />
               </MainLayout> 
               )} />
   

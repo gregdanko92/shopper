@@ -4,9 +4,9 @@ import './styles.scss'
 const Footer = (props) => {
     return(
         <footer className='footer'>
-            <div className="wrap">
+            {/* <div className="wrap">
                 © Greg Danko, CurieAI 2021
-            </div>
+            </div> */}
         </footer>   
     )
 }

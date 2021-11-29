@@ -29,3 +29,4 @@ export const setProduct = product => ({
   type: productsTypes.SET_PRODUCT,
   payload: product
 });
+
