@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom'
 import './styles.scss'
 import Button from './../forms/Button/'
 import AuthWrapper from './../AuthWrapper'
-import {useHistory} from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 
 import FormInput from './../forms/FormInput'
 import Buttons from './../forms/Button/'
@@ -26,7 +26,7 @@ const SignIn = (props) => {
         setPassword('')
     }
     useEffect(()=>{
-        if (currentUser){
+        if (currentUser){ //currentUser is coming from the redux store, whenever this changes, this useEffect body will run
             resetForm()
             history.push('/')
         }

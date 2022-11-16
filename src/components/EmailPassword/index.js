@@ -5,7 +5,7 @@ import './styles.scss'
 import AuthWrapper from '../AuthWrapper'
 import FormInput from '../forms/FormInput'
 import Button from '../forms/Button'
-import { useHistory } from 'react-router-dom'
+import { useHistory } from 'react-router-dom' // history hook gives access to history without having to go through props
 
 
 const mapState = ({ user }) => ({

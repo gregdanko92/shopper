@@ -14,7 +14,7 @@ const mapState = (state) =>({
 const Header = (props) => {
 const dispatch = useDispatch()
 const signOut = () => {
-    dispatch(signOutUserStart())
+    dispatch(signOutUserStart()) // dispatches the user.action to signout user using the firebase command sign out, you could have left it here, but this way is more consistent
 }
 
     const { currentUser, totalNumCartItems } = useSelector(mapState)

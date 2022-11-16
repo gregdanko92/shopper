@@ -37,9 +37,8 @@ import Cart from './pages/Cart'
 const App = (props) => {
   const dispatch = useDispatch()
 
-
   useEffect(()=>{
-    dispatch(checkUserSession())
+    dispatch(checkUserSession()) // now we will dispatch the checkusersession when the component mounts
     // moved to user.saga
   },[]) //as far as lifecycle is concerned, use effect and dependencies sub in for componentDidMount and the return element subs in for componentWillUnmount. make sure you unmount to prevent data leak
     

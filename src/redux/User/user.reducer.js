@@ -8,10 +8,10 @@ const INITIAL_STATE = {
 
 const userReducer = (state=INITIAL_STATE, action) => {
     switch(action.type) {
-        case userTypes.SIGN_IN_SUCCESS:
+        case userTypes.SIGN_IN_SUCCESS: //this is dispatched from the relevant sign in saga
             return{
                 ...state,
-                currentUser: action.payload,
+                currentUser: action.payload, //sets the current user in the store as they payload from the user action, and therefore from the user sign in saga generator function which acquired the user SNAPSHOT
                 userErr: []
         }
         
@@ -29,7 +29,7 @@ const userReducer = (state=INITIAL_STATE, action) => {
         case userTypes.SIGN_OUT_USER_SUCCESS:
             return {
                 ...state,
-                ...INITIAL_STATE
+                ...INITIAL_STATE // change the state to currentUser:null, 
             }
         default:
             return state

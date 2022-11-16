@@ -9,13 +9,13 @@ export function* addProduct({ payload }) {
 
   try {
     const timestamp = new Date();
-    yield handleAddProduct({
-      ...payload,
-      productAdminUserUID: auth.currentUser.uid,
-      createdDate: timestamp
+    yield handleAddProduct({ //see relevant helper function, async code will occur
+      ...payload, //take all of the data we gathered from the component
+      productAdminUserUID: auth.currentUser.uid, // add this field to the product
+      createdDate: timestamp // add this field to the product
     });
     yield put(
-      fetchProductsStart()
+      fetchProductsStart() //updates the rendered products
     );
 
 
@@ -31,8 +31,8 @@ export function* onAddProductStart() {
 
 export function* fetchProducts({ payload }) {
   try {
-    const products = yield handleFetchProducts(payload);
-    yield put(
+    const products = yield handleFetchProducts(payload); //brings in the helper function
+    yield put( //waits for the helper funciton to then set the products
       setProducts(products)
     );
 
@@ -43,7 +43,7 @@ export function* fetchProducts({ payload }) {
 
 export function* onFetchProductsStart() {
   yield takeLatest(productsTypes.FETCH_PRODUCTS_START, fetchProducts)
-}
+} // just setting up the call of it's secondary function
 
 export function* deleteProduct({ payload }) {
   try {

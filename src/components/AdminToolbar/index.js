@@ -10,10 +10,10 @@ const mapState = ({ user }) =>({
 })
 
 const AdminToolbar = (props) => {
-    const { currentUser }  = useSelector(mapState)
+    const { currentUser }  = useSelector(mapState) // useSelector explained: equivalent of mapStateToProps
 
-    const isAdmin = checkUserIsAdmin(currentUser)
-    if (!isAdmin) return null
+    const isAdmin = checkUserIsAdmin(currentUser)// this line checks if the user if an admin 
+    if (!isAdmin) return null // this line then operates to cancel the rendering of the component based on the result of the above, this protecting our admin route, hooray
 
     return (
         <div className='admin-toolbar'>

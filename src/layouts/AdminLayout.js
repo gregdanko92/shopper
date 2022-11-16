@@ -35,7 +35,8 @@ const AdminLayout = (props) => {
           </VerticalNav>
         </div>
         <div className="content">
-          {props.children}
+          {props.children // this will be the component passed to this layout!!!!
+          } 
         </div>
       </div>
       <Footer />

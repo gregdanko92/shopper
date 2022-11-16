@@ -3,13 +3,13 @@ import { firestore } from './../../firebase/utility';
 export const handleAddProduct = product => {
   return new Promise((resolve, reject) => {
     firestore
-      .collection('products')
-      .doc()
-      .set(product)
-      .then(() => {
+      .collection('products') // find the product collection
+      .doc()                  // make a new document
+      .set(product)           // set values of the new doc to the sent product
+      .then(() => {           // if this work, promise is resolved
         resolve();
       })
-      .catch(err => {
+      .catch(err => {         // if an error occurs, we can reject the promise
         reject(err);
       })
   });
@@ -31,9 +31,9 @@ export const handleFetchProducts = ({ filterType, startAfterDoc, persistProducts
 
         const data = [
           ...persistProducts,
-          ...snapshot.docs.map(doc => {
+          ...snapshot.docs.map(doc => { //maps every doc that is on the snapshot, and returns all of the data on it
             return {
-              ...doc.data(),
+              ...doc.data(), //.data() is a method to return all the data relevant to the doc
               documentID: doc.id
             }
           })

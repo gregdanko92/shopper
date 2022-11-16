@@ -6,13 +6,15 @@ export const handleResetPasswordAPI = (email) => {
             }
     return new Promise((resolve, reject)=>{
 
+        // initially from the saga try/catch
+        //
         auth.sendPasswordResetEmail(email, config)
                 .then(()=>{
                     resolve()
                 })
                 .catch(()=>{
                     const err = ['Email not found please try again']
-                    reject(err)
+                    reject(err)//will throw the error, if it occurs
 
                 })
     })

@@ -15,8 +15,11 @@ GoogleProvider.setCustomParameters({prompt:'select_account'})
 // export const signInWithGoogle = () => auth.signInWithPopup(GoogleProvider)
 
 export const handleUserProfile = async ({userAuth, additionalData}) => {
+    //helper function to check if the user that has signed in is stored in the users collections of the firebase database
+    // if they do not exist in the db then 
     if(!userAuth) return;
-    const { uid } = userAuth
+    
+    const { uid } = userAuth //userAuth is returned from firebase to the app whenever someone signs in
 
     const userRef = firestore.doc(`users/${uid}`)
     const snapshot = await userRef.get()
@@ -24,13 +27,13 @@ export const handleUserProfile = async ({userAuth, additionalData}) => {
     if (!snapshot.exists){
         const { displayName, email } = userAuth
         const timestamp = new Date()
-        const userRoles = ['user']
+        const userRoles = ['user'] // default assignment will be user
         try { //add user and data to firebase db
             await userRef.set({
                 displayName,
                 email,
                 createdDate: timestamp,
-                userRoles,
+                userRoles, //pass this to firebase, now that it's passed you can log into firebase and add admin to the user roles array
                 ...additionalData
             })
         } catch(err){
@@ -41,10 +44,12 @@ export const handleUserProfile = async ({userAuth, additionalData}) => {
 }
 
 export const getCurrentUser = () => {
+//this fn will return a new promise, 
     return new Promise((resolve, reject)=>{
+        
         const unsubscribe = auth.onAuthStateChanged(userAuth => {
             unsubscribe()
-            resolve(userAuth)
-        }, reject)
+            resolve(userAuth) //resolution, if this resolves to truem then it will return that from the promise as resolved, 
+        }, reject) //if not it gets rejected  and the fn will not proceed
     })
 }

@@ -8,12 +8,12 @@ import Button from './../../components/forms/Button';
 import { CKEditor } from 'ckeditor4-react';
 import './styles.scss';
 
-const mapState = ({ productsData }) => ({
+const mapState = ({ productsData }) => ({ // get access to the fetched products from the store
   products: productsData.products
 });
 
 const Admin = props => {
-  const { products } = useSelector(mapState);
+  const { products } = useSelector(mapState); //give access to the component via the useSelector hook and the mapstate function above
   const dispatch = useDispatch();
   const [hideModal, setHideModal] = useState(true);
   const [productCategory, setProductCategory] = useState('wetsuits');
@@ -28,7 +28,7 @@ const Admin = props => {
     dispatch(
       fetchProductsStart()
     );
-  }, []);
+  }, []); //empty array ensures the render occurs only upon mounting, without it, it would change whenever state changes, which we don't want
 
   const toggleModal = () => setHideModal(!hideModal);
 
@@ -48,6 +48,8 @@ const Admin = props => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    //this function has access to everything we are keeping in local state hooks above, 
+    //so now we are able to dispatch all of that data to an ACTION. 
 
     dispatch(
       addProductStart({
@@ -78,7 +80,7 @@ const Admin = props => {
 
       <Modal {...configModal}>
         <div className="addNewProductForm">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit}> 
 
             <h2>
               Add new product
@@ -97,7 +99,7 @@ const Admin = props => {
             />
 
             <FormInput
-              label="Name"
+              label="Name" // these attributes are all built out of the formInput components, therefore theyh come pre-styled
               type="text"
               value={productName}
               handleChange={e => setProductName(e.target.value)}
